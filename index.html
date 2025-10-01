@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="待办清单 + 番茄钟 + Markdown笔记 - 提高生产力的一体化工具">
+    <meta name="keywords" content="待办清单,番茄钟,Markdown笔记,生产力工具,时间管理,任务管理">
+    <meta name="author" content="生产力工具">
+    
+    <!-- PWA支持 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="生产力工具">
+    
+    <!-- 社交媒体分享 -->
+    <meta property="og:title" content="生产力工具 - 待办清单 + 番茄钟 + 笔记">
+    <meta property="og:description" content="集成待办清单、番茄钟计时器和Markdown笔记的一体化生产力工具">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://你的域名.com/preview.png">
+    
+    <title>haolin的生产力工具 - 待办清单 + 番茄钟 + 笔记</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-toggle" id="sidebarToggle">
+            <span class="toggle-icon">‹</span>
+        </div>
+        <div class="sidebar-content">
+            <div class="user-profile">
+                <div class="user-avatar">👤</div>
+                <div class="user-details">
+                    <div class="username" id="username-display">haolin</div>
+                    <div class="user-status">在线</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">待办清单</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🍅</span>
+                    <span class="nav-text">番茄钟</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">笔记</span>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="logout-btn" title="登出" onclick="window.forceLogout()">
+                    <span class="logout-icon">🚪</span>
+                    <span class="logout-text">登出</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <div class="container">
+            <!-- 待办清单区域 -->
+        <section class="todo-section" aria-label="待办清单">
+            <header class="section-header">
+                <h2>📝 待办清单</h2>
+            </header>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input" placeholder="输入新任务，按回车添加..." aria-label="新任务输入框" maxlength="200">
+            </div>
+            <ul id="todo-list" class="todo-list" role="list" aria-label="待办事项列表">
+                <!-- 待办事项将在这里动态生成 -->
+            </ul>
+            <div class="todo-stats">
+                <span id="todo-count">0 个任务</span>
+            </div>
+        </section>
+
+        <!-- 番茄钟区域 -->
+        <section class="pomodoro-section" aria-label="番茄钟计时器">
+            <header class="section-header">
+                <h2>🍅 番茄钟</h2>
+            </header>
+            <div class="timer-display">
+                <div id="timer-time" class="timer-time" aria-live="polite">25:00</div>
+                <div id="timer-mode" class="timer-mode">工作时间</div>
+            </div>
+            <div class="timer-controls">
+                <button id="timer-start" class="btn btn-primary" aria-label="开始计时">
+                    开始
+                </button>
+                <button id="timer-pause" class="btn btn-secondary" aria-label="暂停计时" disabled>
+                    暂停
+                </button>
+                <button id="timer-reset" class="btn btn-secondary" aria-label="重置计时器">
+                    重置
+                </button>
+            </div>
+            <div class="timer-stats">
+                <div class="stat-item">
+                    <span class="stat-label">已完成:</span>
+                    <span id="completed-sessions">0</span> 个番茄钟
+                </div>
+            </div>
+        </section>
+
+        <!-- Markdown笔记区域 -->
+        <section class="notes-section" aria-label="Markdown笔记">
+            <header class="section-header">
+                <h2>📄 Markdown 笔记</h2>
+            </header>
+            <div class="notes-container">
+                <div class="notes-editor">
+                    <label for="markdown-input" class="sr-only">Markdown编辑器</label>
+                    <textarea id="markdown-input" class="markdown-input" placeholder="在这里输入Markdown文本...
+
+# 示例标题
+- 列表项目
+- **粗体文本**
+- *斜体文本*
+- [链接](https://example.com)" aria-label="Markdown文本编辑区域"></textarea>
+                </div>
+                <div class="notes-preview">
+                    <div id="markdown-preview" class="markdown-preview" aria-label="Markdown预览区域">
+                        <p class="preview-placeholder">Markdown预览将在这里显示...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+    </main>
+
+    <!-- 音频提示 -->
+    <audio id="notification-sound" preload="auto" aria-hidden="true">
+        <!-- 使用Web Audio API生成提示音，无需外部文件 -->
+    </audio>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
